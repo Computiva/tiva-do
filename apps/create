@@ -1,0 +1,11 @@
+#! /bin/bash
+
+[ -v CONTENT_LENGTH ] && read -N $CONTENT_LENGTH message_body
+id=`cat /dev/urandom | tr -dc '0-9A-F' | head -c 16`
+echo 'HTTP/1.1 201 Created'
+echo 'Refresh: 0;URL=/do/list.haml'
+echo ''
+while IFS='=' read -d '&' name value
+do
+	echo "set do:task:$id:$name \"`urlencode -d $value`\"" | redis-cli > /dev/null
+done <<< "$message_body&"

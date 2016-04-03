@@ -1,0 +1,45 @@
+body
+	font-family: Arial
+
+button
+	background-color: white
+	padding: 5px
+	cursor: pointer
+
+fieldset, button
+	border-style: solid
+	border-color: black
+	border-width: 1px
+	border-radius: 5px
+
+div#menu button
+	width: 100%
+	display: block
+
+div.task
+	margin-top: 5px
+
+	button
+		height: 31px
+
+	button.action
+		border-right-style: none
+		border-top-right-radius: 0
+		border-bottom-right-radius: 0
+
+	button.title
+		margin-left: -5px
+		width: calc(100% - 33px)
+		border-top-left-radius: 0
+		border-bottom-left-radius: 0
+
+		i.fa-exclamation-triangle
+			float: right
+			color: yellow
+
+		i.fa-exclamation-circle
+			float: right
+			color: red
+
+div.task.checked button.title
+	text-decoration: line-through
