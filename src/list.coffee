@@ -2,8 +2,8 @@ window.complete = (element, id) ->
 	request = new XMLHttpRequest()
 	request.addEventListener "load", ->
 		element.parentElement.classList.add "checked"
-		element.querySelector("i").classList.remove "fa-square-o"
-		element.querySelector("i").classList.add "fa-check-square-o"
+		element.querySelector("div").classList.remove "icon-checkbox"
+		element.querySelector("div").classList.add "icon-checkbox-checked"
 		element.onclick = (event) ->
 			uncomplete element, id
 	request.open "POST", "/do/complete"
@@ -13,8 +13,8 @@ uncomplete = (element, id) ->
 	request = new XMLHttpRequest()
 	request.addEventListener "load", ->
 		element.parentElement.classList.remove "checked"
-		element.querySelector("i").classList.add "fa-square-o"
-		element.querySelector("i").classList.remove "fa-check-square-o"
+		element.querySelector("div").classList.remove "icon-checkbox-checked"
+		element.querySelector("div").classList.add "icon-checkbox"
 		element.onclick = (event) ->
 			complete element, id
 	request.open "POST", "/do/uncomplete"

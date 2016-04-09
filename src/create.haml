@@ -2,7 +2,7 @@
 	%head
 		%meta(charset="utf-8")
 		%link(rel="stylesheet" href="/do/create.sass.css")
-		%link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css")
+		%link(rel="stylesheet" href="https://file.myfontastic.com/GHSMVL57gQF47PF2BGr9Gm/icons.css")
 	%body
 		%h1 Create task
 		%form(method="POST" action="/do/create")
@@ -10,12 +10,14 @@
 			%input(type="text" name="title")
 			%div
 				%input(type="checkbox" name="urgent")
-				%i.fa.fa-exclamation-circle
+				%span.icon-urgent
 				%label(for="urgent") Urgent
 			%div
 				%input(type="checkbox" name="important")
-				%i.fa.fa-exclamation-triangle
+				%span.icon-important
 				%label(for="important") Important
 			%label(for="date") Date
 			%input(type="text" name="date")
-			%button Create
+			%button
+				%span.icon-add
+				Create

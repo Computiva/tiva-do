@@ -6,10 +6,12 @@
 		%meta(name="viewport" content="width=device-width, maximum-scale=1")
 		%script(src="/do/list.js")
 		%link(rel="stylesheet" href="/do/list.sass.css")
-		%link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css")
+		%link(rel="stylesheet" href="https://file.myfontastic.com/GHSMVL57gQF47PF2BGr9Gm/icons.css")
 	%body
 		#menu
-			%button(onclick="window.location = \"/do/create.haml.html\"") Create task
+			%button(onclick="window.location = \"/do/create.haml.html\"")
+				%span.icon-add
+				Create task
 		- late_urgent_tasks = Array.new
 		- late_important_tasks = Array.new
 		- late_other_tasks = Array.new
@@ -67,113 +69,113 @@
 			- late_urgent_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
-						%i.fa.fa-square-o.fa-fw
+						.icon-checkbox
 					%button.title
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-triangle.ta-fw
+							.icon-important
 						- if `echo 'get do:task:#{id}:urgent' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-circle.ta-fw
+							.icon-urgent
 			- late_important_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
-						%i.fa.fa-square-o.fa-fw
+						.icon-checkbox
 					%button.title
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-triangle.ta-fw
+							.icon-important
 						- if `echo 'get do:task:#{id}:urgent' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-circle.ta-fw
+							.icon-urgent
 			- late_other_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
-						%i.fa.fa-square-o.fa-fw
+						.icon-checkbox
 					%button.title= `echo 'get do:task:#{id}:title' | redis-cli`
 		%fieldset
 			%legend Today
 			- today_urgent_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
-						%i.fa.fa-square-o.fa-fw
+						.icon-checkbox
 					%button.title
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-triangle.ta-fw
+							.icon-important
 						- if `echo 'get do:task:#{id}:urgent' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-circle.ta-fw
+							.icon-urgent
 			- today_important_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
-						%i.fa.fa-square-o.fa-fw
+						.icon-checkbox
 					%button.title
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-triangle.ta-fw
+							.icon-important
 						- if `echo 'get do:task:#{id}:urgent' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-circle.ta-fw
+							.icon-urgent
 			- today_other_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
-						%i.fa.fa-square-o.fa-fw
+						.icon-checkbox
 					%button.title= `echo 'get do:task:#{id}:title' | redis-cli`
 		%fieldset
 			%legend Some day
 			- some_day_urgent_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
-						%i.fa.fa-square-o.fa-fw
+						.icon-checkbox
 					%button.title
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-triangle.ta-fw
+							.icon-important
 						- if `echo 'get do:task:#{id}:urgent' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-circle.ta-fw
+							.icon-urgent
 			- some_day_important_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
-						%i.fa.fa-square-o.fa-fw
+						.icon-checkbox
 					%button.title
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-triangle.ta-fw
+							.icon-important
 						- if `echo 'get do:task:#{id}:urgent' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-circle.ta-fw
+							.icon-urgent
 			- some_day_other_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
-						%i.fa.fa-square-o.fa-fw
+						.icon-checkbox
 					%button.title= `echo 'get do:task:#{id}:title' | redis-cli`
 		%fieldset
 			%legend Next days
 			- next_days_urgent_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
-						%i.fa.fa-square-o.fa-fw
+						.icon-checkbox
 					%button.title
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-triangle.ta-fw
+							.icon-important
 						- if `echo 'get do:task:#{id}:urgent' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-circle.ta-fw
+							.icon-urgent
 			- next_days_important_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
-						%i.fa.fa-square-o.fa-fw
+						.icon-checkbox
 					%button.title
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-triangle.ta-fw
+							.icon-important
 						- if `echo 'get do:task:#{id}:urgent' | redis-cli` == "on\n"
-							%i.fa.fa-exclamation-circle.ta-fw
+							.icon-urgent
 			- next_days_other_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
-						%i.fa.fa-square-o.fa-fw
+						.icon-checkbox
 					%button.title= `echo 'get do:task:#{id}:title' | redis-cli`
 		%fieldset
 			%legend Completed
 			- completed_tasks.each do |id|
 				.task
 					%button.action(onclick="removeTask('#{id}')")
-						%i.fa.fa-times.fa-fw
+						.icon-trash
 					%button.title= `echo 'get do:task:#{id}:title' | redis-cli`
