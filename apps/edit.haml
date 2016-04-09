@@ -1,0 +1,37 @@
+#! /usr/bin/rmshebang haml
+
+%html
+	%head
+		%meta(charset="utf-8")
+		%link(rel="stylesheet" href="/do/create.sass.css")
+		%link(rel="stylesheet" href="https://file.myfontastic.com/GHSMVL57gQF47PF2BGr9Gm/icons.css")
+	%body
+		%h1 Edit task
+		- id = `echo -n $QUERY_STRING`
+		- title = `echo 'get do:task:#{id}:title' | redis-cli`
+		- urgent = `echo 'get do:task:#{id}:urgent' | redis-cli`
+		- important = `echo 'get do:task:#{id}:important' | redis-cli`
+		- date = `echo 'get do:task:#{id}:date' | redis-cli`
+		%form(method="POST" action="/do/edit")
+			%input(type="hidden" name="id" value="#{id}")
+			%label(for="title") Title
+			%input(type="text" name="title" value="#{title}")
+			%div
+				- if urgent == "on\n"
+					%input(type="checkbox" name="urgent" checked)
+				- else
+					%input(type="checkbox" name="urgent")
+				%span.icon-urgent
+				%label(for="urgent") Urgent
+			%div
+				- if important == "on\n"
+					%input(type="checkbox" name="important" checked)
+				- else
+					%input(type="checkbox" name="important")
+				%span.icon-important
+				%label(for="important") Important
+			%label(for="date") Date
+			%input(type="text" name="date" value="#{date}")
+			%button
+				%span.icon-edit
+				Update

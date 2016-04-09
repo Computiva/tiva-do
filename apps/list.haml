@@ -70,7 +70,7 @@
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
 						.icon-checkbox
-					%button.title
+					%button.title(onclick="window.location = \"/do/edit.haml?#{id}\"")
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
 							.icon-important
@@ -80,7 +80,7 @@
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
 						.icon-checkbox
-					%button.title
+					%button.title(onclick="window.location = \"/do/edit.haml?#{id}\"")
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
 							.icon-important
@@ -97,7 +97,7 @@
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
 						.icon-checkbox
-					%button.title
+					%button.title(onclick="window.location = \"/do/edit.haml?#{id}\"")
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
 							.icon-important
@@ -107,7 +107,7 @@
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
 						.icon-checkbox
-					%button.title
+					%button.title(onclick="window.location = \"/do/edit.haml?#{id}\"")
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
 							.icon-important
@@ -124,7 +124,7 @@
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
 						.icon-checkbox
-					%button.title
+					%button.title(onclick="window.location = \"/do/edit.haml?#{id}\"")
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
 							.icon-important
@@ -134,7 +134,7 @@
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
 						.icon-checkbox
-					%button.title
+					%button.title(onclick="window.location = \"/do/edit.haml?#{id}\"")
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
 							.icon-important
@@ -144,14 +144,14 @@
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
 						.icon-checkbox
-					%button.title= `echo 'get do:task:#{id}:title' | redis-cli`
+					%button.title(onclick="window.location = \"/do/edit.haml?#{id}\"")= `echo 'get do:task:#{id}:title' | redis-cli`
 		%fieldset
 			%legend Next days
 			- next_days_urgent_tasks.each do |id|
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
 						.icon-checkbox
-					%button.title
+					%button.title(onclick="window.location = \"/do/edit.haml?#{id}\"")
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
 							.icon-important
@@ -161,7 +161,7 @@
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
 						.icon-checkbox
-					%button.title
+					%button.title(onclick="window.location = \"/do/edit.haml?#{id}\"")
 						= `echo 'get do:task:#{id}:title' | redis-cli`
 						- if `echo 'get do:task:#{id}:important' | redis-cli` == "on\n"
 							.icon-important
@@ -171,7 +171,7 @@
 				.task
 					%button.action(onclick="complete(this, '#{id}')")
 						.icon-checkbox
-					%button.title= `echo 'get do:task:#{id}:title' | redis-cli`
+					%button.title(onclick="window.location = \"/do/edit.haml?#{id}\"")= `echo 'get do:task:#{id}:title' | redis-cli`
 		%fieldset
 			%legend Completed
 			- completed_tasks.each do |id|

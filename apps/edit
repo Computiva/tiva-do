@@ -1,0 +1,16 @@
+#! /bin/bash
+
+[ -v CONTENT_LENGTH ] && read -N $CONTENT_LENGTH message_body
+echo 'HTTP/1.1 201 Created'
+echo 'Refresh: 0;URL=/do/list.haml'
+echo ''
+while IFS='=' read -d '&' name value
+do
+	if [[ $name == id ]]
+	then
+		id="$value"
+		echo "del do:task:$id:urgent" | redis-cli > /dev/null
+		echo "del do:task:$id:important" | redis-cli > /dev/null
+	fi
+	[ -v id ] && echo "set do:task:$id:$name \"`urlencode -d $value`\"" | redis-cli > /dev/null
+done <<< "$message_body&"
