@@ -9,8 +9,10 @@ do
 	if [[ $name == id ]]
 	then
 		id="$value"
-		echo "del do:task:$id:urgent" | redis-cli > /dev/null
-		echo "del do:task:$id:important" | redis-cli > /dev/null
+		for field in `cat /srv/tiva/static/do/create.haml.html | sed --silent "s/^.*<input name='\(.*\)' type='checkbox'>/\1/p"`
+		do
+			echo "del do:task:$id:$field" | redis-cli > /dev/null
+		done
 	fi
 	[ -v id ] && echo "set do:task:$id:$name \"`urlencode -d $value`\"" | redis-cli > /dev/null
 done <<< "$message_body&"

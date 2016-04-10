@@ -1,7 +1,47 @@
 #! /bin/bash
 
 [ -v CONTENT_LENGTH ] && read -N $CONTENT_LENGTH message_body
-echo "set do:task:$message_body:completed `date '+%Y/%m/%d'`" | redis-cli > /dev/null
 echo 'HTTP/1.1 201 Created'
 echo 'Content-Type: text/plain'
 echo ''
+if [[ `echo "get do:task:$message_body:repeat" | redis-cli` == on ]]
+then
+	if [[ `echo "get do:task:$message_body:type" | redis-cli` == every ]]
+	then
+		amount=`echo "get do:task:$message_body:amount" | redis-cli`
+		[[ `echo "get do:task:$message_body:amount_type" | redis-cli` == days ]] && change_date="( $amount * 24 * 60 * 60 ) + "
+		[[ `echo "get do:task:$message_body:amount_type" | redis-cli` == weeks ]] && change_date="( $amount * 7 * 24 * 60 * 60 ) + "
+	fi
+	if [[ `echo "get do:task:$message_body:type" | redis-cli` == weekly ]]
+	then
+		while [[ $day_checked != "on" ]]
+		do
+			change_date="( 24 * 60 * 60 ) + $change_date"
+			week_day=`echo "get do:task:$message_body:date" | redis-cli | xargs date '+%s' --date | xargs echo "$change_date" | bc | xargs -I %s echo "@%s"     | xargs date '+%A' --date | tr '[:upper:]' '[:lower:]'`
+			day_checked=`echo "get do:task:$message_body:$week_day" | redis-cli`
+		done
+	fi
+	if [[ `echo "get do:task:$message_body:type" | redis-cli` == monthly ]]
+	then
+		while [[ $day_checked != "on" ]]
+		do
+			change_date="( 24 * 60 * 60 ) + $change_date"
+			month_day=`echo "get do:task:$message_body:date" | redis-cli | xargs date '+%s' --date | xargs echo "$change_date" | bc | xargs -I %s echo "@%s" | xargs date '+%d' --date`
+			day_checked=`echo "get do:task:$message_body:day_$month_day" | redis-cli`
+		done
+	fi
+	id=`cat /dev/urandom | tr -dc '0-9A-F' | head -c 16`
+	for key in `echo "keys do:task:$message_body:*" | redis-cli`
+	do
+		new_key=`echo "$key" | sed -e 's/^\(do:task:\)[^:]\+/\1'$id'/'`
+		if [[ $new_key == "do:task:$id:date" ]]
+		then
+			value=`echo "get do:task:$message_body:date" | redis-cli | xargs date '+%s' --date | xargs echo "$change_date" | bc | xargs -I %s echo "@%s" | xargs date '+%Y/%m/%d' --date`
+		else
+			value=`echo "get $key" | redis-cli`
+		fi
+		echo "set $new_key $value" | redis-cli > /dev/null
+	done
+fi
+echo "set do:task:$message_body:completed `date '+%Y/%m/%d'`" | redis-cli > /dev/null
+echo "del do:task:$message_body:repeat" | redis-cli > /dev/null

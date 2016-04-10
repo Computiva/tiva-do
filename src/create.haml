@@ -1,8 +1,10 @@
 %html
 	%head
 		%meta(charset="utf-8")
+		%meta(name="viewport" content="width=device-width, maximum-scale=1")
+		%script(src="/do/create.js")
 		%link(rel="stylesheet" href="/do/create.sass.css")
-		%link(rel="stylesheet" href="https://file.myfontastic.com/GHSMVL57gQF47PF2BGr9Gm/icons.css")
+		%link(rel="stylesheet" href="/do/tiva-font.css")
 	%body
 		%h1 Create task
 		%form(method="POST" action="/do/create")
@@ -18,6 +20,48 @@
 				%label(for="important") Important
 			%label(for="date") Date
 			%input(type="text" name="date")
+			#repeat
+				%input(type="checkbox" name="repeat")
+				%span.icon-repeat
+				%label(for="repeat") Repeat task
+				#frequency
+					%select(name="type")
+						%option(value="every") Every
+						%option(value="weekly") Weekly
+						%option(value="monthly") Monthly
+					#every
+						%input(type="text" name="amount")
+						%select(name="amount_type")
+							%option(value="days") Days
+							%option(value="weeks") Weeks
+					#weekly
+						%div
+							%input(type="checkbox" name="sunday")
+							%label(for="sunday") Sunday
+						%div
+							%input(type="checkbox" name="monday")
+							%label(for="monday") Monday
+						%div
+							%input(type="checkbox" name="tuesday")
+							%label(for="tuesday") Tuesday
+						%div
+							%input(type="checkbox" name="wednesday")
+							%label(for="wednesday") Wednesday
+						%div
+							%input(type="checkbox" name="thursday")
+							%label(for="thursday") Thursday
+						%div
+							%input(type="checkbox" name="friday")
+							%label(for="friday") Friday
+						%div
+							%input(type="checkbox" name="saturday")
+							%label(for="saturday") Saturday
+					#monthly
+						- (1..31).each do |day|
+							%div
+								- day = day.to_s.rjust(2, "0")
+								%input(type="checkbox" name="day_#{day}")
+								%label(for="day_#{day}")= day
 			%button
 				%span.icon-add
 				Create
