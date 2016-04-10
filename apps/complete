@@ -40,7 +40,7 @@ then
 		else
 			value=`echo "get $key" | redis-cli`
 		fi
-		echo "set $new_key $value" | redis-cli > /dev/null
+		echo "set $new_key '$value'" | redis-cli > /dev/null
 	done
 fi
 echo "set do:task:$message_body:completed `date '+%Y/%m/%d'`" | redis-cli > /dev/null
